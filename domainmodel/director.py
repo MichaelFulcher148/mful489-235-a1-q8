@@ -11,20 +11,21 @@ class Director:
     def director_full_name(self) -> str:
         return self.__director_full_name
 
-    def __repr__(self):
-        return f"<Director {self.__director_full_name}>"
+    def __repr__(self) -> str:
+        return f'<Director {self.__director_full_name}>'
 
-    def __eq__(self, other):
-        # TODO
-        pass
+    def __eq__(self, other: 'Director') -> bool:
+        if not isinstance(other, Director):
+            return False
+        return self.__director_full_name == other.__director_full_name
 
-    def __lt__(self, other):
-        # TODO
-        pass
+    def __lt__(self, other: 'Director') -> bool:
+        if not isinstance(other, Director):
+            return False
+        return self.__director_full_name < other.__director_full_name
 
-    def __hash__(self):
-        # TODO
-        pass
+    def __hash__(self) -> int:
+        return hash(self.__director_full_name)
 
 
 class TestDirectorMethods:
