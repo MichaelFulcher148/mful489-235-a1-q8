@@ -12,7 +12,7 @@ class WatchList:
         if self.__current == len(self.__the_list):
             raise StopIteration
         else:
-            data = self.__the_list [self.__current]
+            data = self.__the_list[self.__current]
             self.__current += 1
             return data
 

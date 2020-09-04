@@ -17,6 +17,12 @@ def test_check_size():
     watchlist.add_movie(Movie("Guardians of the Galaxy", 2012))
     assert (f"Size of watchlist: {watchlist.size()}") == f"Size of watchlist: 3"
 
+def test_add_dupicate():
+    watchlist = WatchList()
+    watchlist.add_movie(Movie("Moana", 2016))
+    watchlist.add_movie(Movie("Ice Age", 2002))
+    watchlist.add_movie(Movie("Moana", 2016))
+
 def test_remove_movie():
     watchlist = WatchList()
     assert (f"Size of watchlist: {watchlist.size()}") == f"Size of watchlist: 0"
@@ -26,6 +32,16 @@ def test_remove_movie():
     watchlist.remove_movie(Movie("Moana", 2016))
     assert (f"Size of watchlist: {watchlist.size()}") == f"Size of watchlist: 1"
     assert str(watchlist.first_movie_in_watchlist()) == '<Movie Ice Age, 2002>'
+
+def test_remove_movie_not_in_list():
+    watchlist = WatchList()
+    assert (f"Size of watchlist: {watchlist.size()}") == f"Size of watchlist: 0"
+    watchlist.add_movie(Movie("Moana", 2016))
+    watchlist.add_movie(Movie("Ice Age", 2002))
+    assert str(watchlist.first_movie_in_watchlist()) == '<Movie Moana, 2016>'
+    watchlist.remove_movie(Movie("Rogue One", 2016))
+    assert (f"Size of watchlist: {watchlist.size()}") == f"Size of watchlist: 2"
+    assert str(watchlist.first_movie_in_watchlist()) == '<Movie Moana, 2016>'
 
 def test_select_movie():
     watchlist = WatchList()

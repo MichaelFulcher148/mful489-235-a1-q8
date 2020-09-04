@@ -8,7 +8,7 @@ from domainmodel.director import Director
 class MovieFileCSVReader:
     def __init__(self, file_name: str) -> None:
         self.__filename = file_name
-        self.__dataset_of_genres = set()
+        self.__dataset_of_genres = dict()
         self.__dataset_of_directors = set()
         self.__dataset_of_actors = set()
         self.__dataset_of_movies = list()
@@ -58,18 +58,23 @@ class MovieFileCSVReader:
             raise TypeError
 
     @property
-    def dataset_of_genres(self) -> set:
-        return self.__dataset_of_genres
+    def dataset_of_genres(self) -> list:
+        return [*self.__dataset_of_genres.keys()]
 
     @dataset_of_genres.setter
-    def dataset_of_genres(self, a_list: set) -> None:
+    def dataset_of_genres(self, a_list: list) -> None:
         self.__dataset_of_genres = a_list
 
-    def add_genre(self, genre: Genre) -> None:
+    def add_genre(self, genre: 'Genre') -> None:
         if isinstance(genre, Genre):
-            self.__dataset_of_genres.add(genre)
+            if genre not in self.__dataset_of_genres:
+                self.__dataset_of_genres[genre] = list()
         else:
             raise TypeError
+
+    def get_movies_of_genre(self, genre: 'Genre') -> list:
+        if isinstance(genre, Genre):
+            return self.__dataset_of_genres[genre]
 
     def read_csv_file(self) -> None:
         with open(self.__filename, mode='r', encoding='utf-8-sig') as file_data:
@@ -86,6 +91,7 @@ class MovieFileCSVReader:
                 self.__dataset_of_movies.append(new_movie)
                 for i in new_movie.genres:
                     self.add_genre(i)
+                    self.__dataset_of_genres[i].append(new_movie)
                 for i in new_movie.actors:
                     self.add_actor(i)
                 self.add_director(new_movie.director)

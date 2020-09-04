@@ -14,7 +14,6 @@ def test_compare_user():
     assert (user == user2) == False
     assert (user == user3) == True
 
-
 def test_add_review_to_user():
     user = User('mike', 'nope')
     movie = Movie("Moana", 2016)
